@@ -2,6 +2,14 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs-extra');
 const axios = require('axios');
+require('dotenv').config();
+
+// console.log('process.env',process.env)
+const siteUrl = 
+process.env.NODE_ENV === "development"
+      ? `${process.env.NODE_SITE_URL}`
+      : `${process.env.NODE_SITE_URL}`;
+
 
 class ImageProcessor {
   static async processImage(filePath, options = {}) {
@@ -59,7 +67,7 @@ class ImageProcessor {
         file: outputFilename,
         filesize: processedStats.size,
         mime_type: `image/${format}`,
-        source_url: `/images/${outputFilename}`,
+        source_url: `${siteUrl}/images/${outputFilename}`,
         
         sizes: {
           thumbnail: {
@@ -68,7 +76,7 @@ class ImageProcessor {
             height: thumbnailSize,
             filesize: thumbnailStats.size,
             mime_type: `image/${format}`,
-            source_url: `/thumbnails/${filename}_thumb.${format}`
+            source_url: `${siteUrl}/thumbnails/${filename}_thumb.${format}`
           },
           medium: {
             file: outputFilename,
@@ -84,7 +92,7 @@ class ImageProcessor {
             height: Math.round((1024 / metadata.width) * metadata.height),
             filesize: processedStats.size,
             mime_type: `image/${format}`,
-            source_url: `/images/${outputFilename}`
+            source_url: `${siteUrl}/images/${outputFilename}`
           },
           full: {
             file: outputFilename,
@@ -92,7 +100,7 @@ class ImageProcessor {
             height: metadata.height,
             filesize: processedStats.size,
             mime_type: `image/${format}`,
-            source_url: `/images/${outputFilename}`
+            source_url: `${siteUrl}/images/${outputFilename}`
           }
         },
         
@@ -133,6 +141,7 @@ class ImageProcessor {
       throw new Error(`Image processing failed: ${error.message}`);
     }
   }
+
 
   static async downloadAndProcessImage(imageUrl, customFilename = null) {
   const tempDir = 'uploads/temp/';

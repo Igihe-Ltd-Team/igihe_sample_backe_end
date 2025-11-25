@@ -80,7 +80,7 @@ router.get('/', async (req, res) => {
       page = 1, 
       limit = 10, 
       type, 
-      categories, 
+      category, 
       search,
       sortBy = 'date',
       sortOrder = 'desc',
@@ -96,8 +96,8 @@ router.get('/', async (req, res) => {
     }
     
     // Filter by category
-    if (categories) {
-      query.categories = parseInt(categories);
+    if (category) {
+      query.categories = parseInt(category);
     }
     
     // Filter by featured
@@ -131,13 +131,8 @@ router.get('/', async (req, res) => {
     const total = await NewsItem.countDocuments(query);
 
     // Manually populate media data with local details
-    const siteUrl = `https://igihe-sample-backe-end.onrender.com`;
-
-    // const siteUrl = process.env.NODE_ENV === "development"
-    //   ? `${process.env.NODE_SITE_URL || 'http://localhost:5001'}`
-    //   : `${req.protocol}://${req.get("host")}`;
-
-    const newsItemsWithMedia = await populateMediaData(newsItems, siteUrl);
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const newsItemsWithMedia = await populateMediaData(newsItems, baseUrl);
 
     res.json(newsItemsWithMedia);
   } catch (error) {
