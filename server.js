@@ -26,7 +26,10 @@ fs.ensureDirSync('uploads/thumbnails');
 fs.ensureDirSync('uploads/temp');
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/igihe_news';
+const MONGODB_URI = process.env.MONGODB_URI;
+
+console.log('db',process.env)
+
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,

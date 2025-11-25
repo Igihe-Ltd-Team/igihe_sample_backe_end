@@ -9,7 +9,7 @@ require('dotenv').config();
 // Import your sample data
 const { defaultVideos, defaultPosts, defaultCategories } = require('./sampleData');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/igihe_news';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 async function downloadFeaturedImages(newsItems) {
   console.log('📥 Downloading featured images...');
