@@ -131,7 +131,7 @@ router.get('/', async (req, res) => {
     const total = await NewsItem.countDocuments(query);
 
     // Manually populate media data with local details
-    const baseUrl = `https://igihe-sample-backe-end.onrender.com`;
+    const siteUrl = `https://igihe-sample-backe-end.onrender.com`;
 
     // const siteUrl = process.env.NODE_ENV === "development"
     //   ? `${process.env.NODE_SITE_URL || 'http://localhost:5001'}`
