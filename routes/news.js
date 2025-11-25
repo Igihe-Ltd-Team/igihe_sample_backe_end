@@ -131,11 +131,11 @@ router.get('/', async (req, res) => {
     const total = await NewsItem.countDocuments(query);
 
     // Manually populate media data with local details
-    // const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const baseUrl = `https://igihe-sample-backe-end.onrender.com`;
 
-    const siteUrl = process.env.NODE_ENV === "development"
-      ? `${process.env.NODE_SITE_URL || 'http://localhost:5001'}`
-      : `${req.protocol}://${req.get("host")}`;
+    // const siteUrl = process.env.NODE_ENV === "development"
+    //   ? `${process.env.NODE_SITE_URL || 'http://localhost:5001'}`
+    //   : `${req.protocol}://${req.get("host")}`;
 
     const newsItemsWithMedia = await populateMediaData(newsItems, siteUrl);
 
